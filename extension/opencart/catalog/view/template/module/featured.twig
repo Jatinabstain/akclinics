@@ -1,6 +1,11 @@
-<h3>{{ heading_title }}</h3>
-<div class="row{% if axis == 'horizontal' %} row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4{% endif %}">
-  {% for product in products %}
-    <div class="col mb-3">{{ product }}</div>
-  {% endfor %}
+<div class="container">
+    <div class="heading text-center">
+        <h3 class="mb-2">Frequently Bought Together</h3>
+        <p>The best of Natural and Dermatology in one place. Your daily dose of Nutrition needed for healthy hair, now completed!</p>
+    </div>
+    <div class="row justify-content-center {% if axis == 'horizontal' %} row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4{% endif %}">
+      {% for product in products %}
+        <div class="col mb-3">{{ product }}</div>
+      {% endfor %}
+    </div>
 </div>
