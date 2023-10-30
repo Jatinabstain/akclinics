@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_reviews']    = '%s reviews';
-$_['text_write']      = 'Write a review';
+$_['text_write']      = 'Rate Us & Write a Review';
 $_['text_login']      = 'Please <a href="%s">login</a> or <a href="%s">register</a> to review';
 $_['text_no_results'] = 'Be the first to write a review for this product.';
 $_['text_note']       = '<span class="text-danger">Note:</span> HTML is not translated!';
@@ -10,7 +10,7 @@ $_['text_success']    = 'Thank you for your review. It has been submitted to the
 // Entry
 $_['entry_author']     = 'Your Name';
 $_['entry_review']     = 'Your Review';
-$_['entry_rating']     = 'Rating';
+$_['entry_rating']     = 'Selecting Your Rating';
 $_['entry_good']       = 'Good';
 $_['entry_bad']        = 'Bad';
 

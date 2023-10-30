@@ -1,5 +1,12 @@
-{% if categories %}
 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+{% if informations %}
+    {% for information in informations %}
+        <li class="nav-item">
+            <a href="{{ information['href'] }}" class="nav-link nav_link"{% if information['external'] %} target="_blank"{% endif %}>{{ information['title'] }}</a>
+        </li>
+    {% endfor %}
+{% endif %}
+{% if categories %}
   {% for category in categories %}
     {% if category.children %}
       <li class="nav-item dropdown"><a href="{{ category.href }}" class="nav-link nav_link dropdown-toggle" data-bs-toggle="dropdown">{{ category.name }}</a>
@@ -20,8 +27,8 @@
       <li class="nav-item"><a href="{{ category.href }}" class="nav-link nav_link">{{ category.name }}</a></li>
     {% endif %}
   {% endfor %}
-    <li class="nav-item">
-        <a href="/contact" class="btn btn_primary">Contact Us</a>
-    </li>
-</ul>
 {% endif %}
+<li class="nav-item">
+    <a href="{{ contact }}" class="btn btn_primary">Contact</a>
+</li>
+</ul>

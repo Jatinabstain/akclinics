@@ -14,93 +14,45 @@
       </div>
       <div class="col-lg-2">
         <h5>Explore</h5>
+        {% if informations %}
         <ul class="list-unstyled">
-          <li>
-            <a href="#">About Us</a>
-          </li>
-          <li>
-            <a href="#">Hair Treatments</a>
-          </li>
-          <li>
-            <a href="#">Cosmetic Surgery</a>
-          </li>
-          <li>
-            <a href="#">Shop</a>
-          </li>
-          <li>
-            <a href="#">Results</a>
-          </li>
-          <li>
-            <a href="#">Blog</a>
-          </li>
-          <li>
-            <a href="#">Faqs</a>
-          </li>
+          {% for information in informations %}
+            <li>
+              <a href="{{ information['href'] }}"{% if information['external'] %} target="_blank"{% endif %}>{{ information['title'] }}</a>
+            </li>
+          {% endfor %}
         </ul>
-{#        <h5>{{ text_service }}</h5>#}
-{#        <ul class="list-unstyled">#}
-{#          <li><a href="{{ contact }}">{{ text_contact }}</a></li>#}
-{#          <li><a href="{{ return }}">{{ text_return }}</a></li>#}
-{#          {% if gdpr %}#}
-{#            <li><a href="{{ gdpr }}">{{ text_gdpr }}</a></li>#}
-{#          {% endif %}#}
-{#          <li><a href="{{ sitemap }}">{{ text_sitemap }}</a></li>#}
-{#        </ul>#}
+        {% endif %}
       </div>
       <div class="col-lg-4">
         <div class="footer_contact">
           <h5>Contact</h5>
-          <a href="tel:+91-97799-44207">+91-97799-44207</a>
-          <a href="mailto:info@akclinics.com">info@akclinics.com</a>
-          <p>M-20, GK-I, Near M Block Market, Delhi 51-E, Sarabha Nagar, Ludhiana, Punjab 60, Canal Rd, South End, Aggar Nagar, Ludhiana, Punjab 316, 100 Feet Rd, Indiranagar, Bengaluru</p>
+          <a href="tel:{{ telephone }}">{{ telephone }}</a>
+          <a href="mailto:{{ email }}">{{ email }}</a>
+          <p>{{ address }}</p>
         </div>
-{#        <h5>{{ text_extra }}</h5>#}
-{#        <ul class="list-unstyled">#}
-{#          <li><a href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>#}
-{#          <li><a href="{{ voucher }}">{{ text_voucher }}</a></li>#}
-{#          {% if affiliate %}#}
-{#            <li><a href="{{ affiliate }}">{{ text_affiliate }}</a></li>#}
-{#          {% endif %}#}
-{#          <li><a href="{{ special }}">{{ text_special }}</a></li>#}
-{#        </ul>#}
       </div>
       <div class="col-lg-3">
         <div class="newsletter">
-          <h4>Stay In The Loop</h4>
-          <div class="input-group newsletter_group mt-3 mb-4">
-            <input type="text" class="form-control shadow-none" placeholder="Email*">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Submit</button>
-          </div>
+          {{ subscribe }}
           <h4>Follow Us On</h4>
           <ul class="list-inline">
             <li class="list-inline-item">
-              <a href="#"><i class="bi bi-facebook"></i></a>
+              <a href="{{ FB_LINK }}" target="_blank"><i class="bi bi-facebook"></i></a>
             </li>
             <li class="list-inline-item">
-              <a href="#"><i class="bi bi-linkedin"></i></a>
+              <a href="{{ LI_LINK }}" target="_blank"><i class="bi bi-linkedin"></i></a>
             </li>
             <li class="list-inline-item">
-              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="{{ IG_LINK }}" target="_blank"><i class="bi bi-instagram"></i></a>
             </li>
             <li class="list-inline-item">
-              <a href="#"><i class="bi bi-youtube"></i></a>
+              <a href="{{ YT_LINK }}" target="_blank"><i class="bi bi-youtube"></i></a>
             </li>
           </ul>
         </div>
-{#        <h5>{{ text_account }}</h5>#}
-{#        <ul class="list-unstyled">#}
-{#          <li><a href="{{ account }}">{{ text_account }}</a></li>#}
-{#          <li><a href="{{ order }}">{{ text_order }}</a></li>#}
-{#          <li><a href="{{ wishlist }}">{{ text_wishlist }}</a></li>#}
-{#          <li><a href="{{ newsletter }}">{{ text_newsletter }}</a></li>#}
-{#        </ul>#}
       </div>
     </div>
-{#    <p>{{ powered }}</p>#}
-    <!--
-OpenCart is open source software and you are free to remove the powered by OpenCart if you want, but its generally accepted practise to make a small donation.
-Please donate via PayPal to donate@opencart.com
-//-->
   </div>
 </footer>
 {{ cookie }}

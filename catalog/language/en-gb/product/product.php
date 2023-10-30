@@ -15,7 +15,7 @@ $_['text_minimum']               = 'This product has a minimum quantity of %s';
 $_['text_reviews']               = '%s reviews';
 $_['text_write']                 = 'Write a review';
 $_['text_login']                 = 'Please <a href="%s">login</a> or <a href="%s">register</a> to review';
-$_['text_related']               = 'Related Products';
+$_['text_related']               = 'Frequently Bought Together';
 $_['text_tags']                  = 'Tags:';
 $_['text_error']                 = 'Product not found!';
 $_['text_subscription']          = 'Subscription';
@@ -29,10 +29,10 @@ $_['text_month']                 = 'month';
 $_['text_year']                  = 'year';
 
 // Entry
-$_['entry_qty']                  = 'Qty';
+$_['entry_qty']                  = 'Quantity:';
 $_['entry_rating']               = 'Rating';
 
 // Tabs
 $_['tab_description']            = 'Description';
 $_['tab_attribute']              = 'Specification';
-$_['tab_review']                 = 'Reviews (%s)';
+$_['tab_review']                 = 'Reviews & Ratings (%s)';

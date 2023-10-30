@@ -257,6 +257,12 @@ class Information extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!empty($information_info)) {
+			$data['top'] = $information_info['top'];
+		} else {
+			$data['top'] = 0;
+		}
+
+		if (!empty($information_info)) {
 			$data['status'] = $information_info['status'];
 		} else {
 			$data['status'] = true;
@@ -266,6 +272,11 @@ class Information extends \Opencart\System\Engine\Controller {
 			$data['sort_order'] = $information_info['sort_order'];
 		} else {
 			$data['sort_order'] = '';
+		}
+		if (!empty($information_info)) {
+			$data['external_url'] = $information_info['external_url'];
+		} else {
+			$data['external_url'] = '';
 		}
 
 		if (isset($this->request->get['information_id'])) {
