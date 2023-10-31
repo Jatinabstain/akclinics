@@ -9,7 +9,7 @@
     <tbody>
       {% for product in products %}
         <tr>
-          <td class="text-start">{{ product.quantity }}x <a href="{{ product.href }}">{{ product.name }}</a>
+          <td class="text-start product_cart_name"><span class="primary_text">{{ product.quantity }}x</span> <a href="{{ product.href }}">{{ product.name }}</a>
             {% for option in product.option %}
               <br/>
               <small> - {{ option.name }}: {{ option.value }}</small>
@@ -46,6 +46,6 @@
   {% if payment %}
     {{ payment }}
   {% else %}
-    <div class="text-end"><button type="button" class="btn btn-primary" disabled>{{ button_confirm }}</button></div>
+    <div class="text-end"><button type="button" class="btn btn_primary" disabled>{{ button_confirm }}</button></div>
   {% endif %}
 </div>

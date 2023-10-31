@@ -1,5 +1,5 @@
 <div class="table-responsive">
-  <table class="table table-bordered">
+  <table class="table">
     <thead>
       <tr>
         <td class="text-center">{{ column_image }}</td>
@@ -10,11 +10,12 @@
         <td class="text-end">{{ column_total }}</td>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="cart_tbody">
       {% for product in products %}
         <tr>
-          <td class="text-center">{% if product.thumb %} <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-thumbnail"/></a> {% endif %}</td>
-          <td class="text-start text-wrap"><a href="{{ product.href }}">{{ product.name }}</a>{% if not product.stock %} <span class="text-danger">***</span>{% endif %}
+          <td class="text-center product_cart_img">{% if product.thumb %} <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-fluid"/></a> {% endif %}</td>
+          <td class="text-start text-wrap product_cart_name">
+              <a href="{{ product.href }}">{{ product.name }}</a>{% if not product.stock %} <span class="text-danger">***</span>{% endif %}
             {% for option in product.option %}
               <br/>
               <small> - {{ option.name }}: {{ option.value }}</small>
@@ -27,15 +28,22 @@
               <br/>
               <small> - {{ text_subscription }}: {{ product.subscription }}</small>
             {% endif %}
+              <form method="post" data-oc-target="#shopping-cart">
+                  <div>
+                      <input type="hidden" name="key" value="{{ product.cart_id }}">
+                      <button type="submit" formaction="{{ product_remove }}" data-bs-toggle="tooltip" data-bs-placement="right" class="btn remove_product" title="{{ button_remove }}"><i class="bi bi-trash3"></i> Remove</button>
+                  </div>
+              </form>
           </td>
           <td class="text-start">{{ product.model }}</td>
           <td class="text-start">
             <form method="post" data-oc-target="#shopping-cart">
-              <div class="input-group">
-                <input type="text" name="quantity" value="{{ product.quantity }}" size="1" class="form-control"> <input type="hidden" name="key" value="{{ product.cart_id }}">
-                <button type="submit" formaction="{{ product_edit }}" data-bs-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i class="fa-solid fa-rotate"></i></button>
-                <button type="submit" formaction="{{ product_remove }}" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"></i></button>
-              </div>
+                <div class="form_cart">
+                  <div class="input-group">
+                    <input type="text" name="quantity" value="{{ product.quantity }}" size="1" class="form-control"> <input type="hidden" name="key" value="{{ product.cart_id }}">
+                    <button type="submit" formaction="{{ product_edit }}" data-bs-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i class="bi bi-arrow-repeat"></i></button>
+                  </div>
+                </div>
             </form>
           </td>
           <td class="text-end">{{ product.price }}</td>
@@ -61,7 +69,7 @@
         </tr>
       {% endfor %}
     </tbody>
-    <tfoot id="checkout-total">
+    <tfoot id="checkout-total" class="checkout_total">
       {% for total in totals %}
         <tr>
           <td colspan="5" class="text-end"><strong>{{ total.title }}</strong></td>

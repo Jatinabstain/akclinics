@@ -17,22 +17,33 @@
       {% endif %}
       <div class="row">{{ column_left }}
         <div id="content" class="col">{{ content_top }}
-          <h1>{{ heading_title }}{% if weight %} ({{ weight }}){% endif %}</h1>
-          <div id="shopping-cart">{{ list }}</div>
-          {% if modules %}
-            <h2>{{ text_next }}</h2>
-            <p>{{ text_next_choice }}</p>
-            <div id="accordion" class="accordion">
-              {% for module in modules %}
-                {{ module }}
-              {% endfor %}
+            <div class="heading mt-3">
+                <h1 class="text-start mb-4">{{ heading_title }}{% if weight %} ({{ weight }}){% endif %}</h1>
             </div>
-          {% endif %}
-          <br/>
-          <div class="row">
-            <div class="col"><a href="{{ continue }}" class="btn btn-light">{{ button_shopping }}</a></div>
-            <div class="col text-end"><a href="{{ checkout }}" class="btn btn-primary">{{ button_checkout }}</a></div>
-          </div>
+            <div class="row">
+                <div class="col-lg-8 order-lg-1 order-2">
+                    <div id="shopping-cart">{{ list }}</div>
+                    <div class="row justify-content-between mt-2">
+                        <div class="col-auto"><a href="{{ continue }}" class="btn btn_primary">{{ button_shopping }}</a></div>
+                        <div class="col-auto"><a href="{{ checkout }}" class="btn btn_dark">{{ button_checkout }}</a></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 order-lg-2 order-1">
+                    <div class="modules_sidebar">
+                        {% if modules %}
+{#                            <div class="module_heading">#}
+{#                                <h2>{{ text_next }}</h2>#}
+{#                            </div>#}
+{#                            <p>{{ text_next_choice }}</p>#}
+                            <div id="accordion" class="accordion">
+                                {% for module in modules %}
+                                    {{ module }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
           {{ content_bottom }}</div>
         {{ column_right }}</div>
     </div>

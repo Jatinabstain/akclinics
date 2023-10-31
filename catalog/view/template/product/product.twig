@@ -103,18 +103,21 @@
                           </li>
                       </ul>
                       {% if price %}
-                          <ul class="list-unstyled costing m-0">
+                          <ul class="list-unstyled costing">
                               {% if not special %}
                                   <li>
-                                      <h2><span class="price-new">{{ price }}</span></h2>
+                                      <h2><span class="price-new">{{ price }}</span> <small style="font-size: 13px !important;" class="fw-normal fs-6 text-muted">(Inclusive of all taxes)</small></h2>
                                   </li>
                               {% else %}
                                   <li><span class="price-old">{{ price }}</span></li>
                                   <li><h2><span class="price-new m-0">{{ special }}</span></h2></li>
                               {% endif %}
-                              {% if tax %}
-                                  <li>{{ text_tax }} {{ tax }}</li>
-                              {% endif %}
+                              <li>
+                                  <small class="text-muted">(Excluding shipping charges)</small>
+                              </li>
+{#                              {% if tax %}#}
+{#                                  <li>{{ text_tax }} {{ tax }}</li> #}
+{#                              {% endif %}#}
                               {% if points %}
                                   <li>{{ text_points }} {{ points }}</li>
                               {% endif %}

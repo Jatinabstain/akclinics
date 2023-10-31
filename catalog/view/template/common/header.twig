@@ -60,6 +60,23 @@
       <div class="col-lg-auto">
         <ul class="list-inline mb-0">
           <li class="list-inline-item">
+            <div class="dropdown">
+              <a href="{{ account }}" class="my_account dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person"></i>
+                <span>{{ text_account }}</span></a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                {% if not logged %}
+                  <li><a href="{{ register }}" class="dropdown-item">{{ text_register }}</a></li>
+                  <li><a href="{{ login }}" class="dropdown-item">{{ text_login }}</a></li>
+                {% else %}
+                  <li><a href="{{ account }}" class="dropdown-item">{{ text_account }}</a></li>
+                  <li><a href="{{ order }}" class="dropdown-item">{{ text_order }}</a></li>
+                  <li><a href="{{ transaction }}" class="dropdown-item">{{ text_transaction }}</a></li>
+                  <li><a href="{{ logout }}" class="dropdown-item">{{ text_logout }}</a></li>
+                {% endif %}
+              </ul>
+            </div>
+          </li>
+          <li class="list-inline-item">
             <a href="{{ FB_LINK }}" target="_blank"><i class="bi bi-facebook"></i></a>
           </li>
           <li class="list-inline-item">
@@ -81,31 +98,16 @@
         <ul class="list-inline">
           <li class="list-inline-item"><a href="{{ contact }}"><i class="fa-solid fa-phone"></i></a> <span
                     class="d-none d-md-inline">{{ telephone }}</span></li>
-          <li class="list-inline-item">
-            <div class="dropdown">
-              <a href="{{ account }}" class="dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i>
-                <span class="d-none d-md-inline">{{ text_account }}</span> <i class="fa-solid fa-caret-down"></i></a>
-              <ul class="dropdown-menu dropdown-menu-right">
-                {% if not logged %}
-                  <li><a href="{{ register }}" class="dropdown-item">{{ text_register }}</a></li>
-                  <li><a href="{{ login }}" class="dropdown-item">{{ text_login }}</a></li>
-                {% else %}
-                  <li><a href="{{ account }}" class="dropdown-item">{{ text_account }}</a></li>
-                  <li><a href="{{ order }}" class="dropdown-item">{{ text_order }}</a></li>
-                  <li><a href="{{ transaction }}" class="dropdown-item">{{ text_transaction }}</a></li>
-                  <li><a href="{{ download }}" class="dropdown-item">{{ text_download }}</a></li>
-                  <li><a href="{{ logout }}" class="dropdown-item">{{ text_logout }}</a></li>
-                {% endif %}
-              </ul>
-            </div>
-          </li>
+
           <li class="list-inline-item"><a href="{{ wishlist }}" id="wishlist-total" title="{{ text_wishlist }}"><i
                       class="fa-solid fa-heart"></i> <span class="d-none d-md-inline">{{ text_wishlist }}</span></a></li>
           <li class="list-inline-item"><a href="{{ shopping_cart }}" title="{{ text_shopping_cart }}"><i
                       class="fa-solid fa-cart-shopping"></i> <span
                       class="d-none d-md-inline">{{ text_shopping_cart }}</span></a></li>
-          <li class="list-inline-item"><a href="{{ checkout }}" title="{{ text_checkout }}"><i
-                      class="fa-solid fa-share"></i> <span class="d-none d-md-inline">{{ text_checkout }}</span></a></li>
+          <li class="list-inline-item">
+            <a href="{{ checkout }}" title="{{ text_checkout }}">
+              <i class="fa-solid fa-share"></i> <span class="d-none d-md-inline">{{ text_checkout }}</span></a>
+          </li>
         </ul>
       </div>
     </div>
@@ -121,20 +123,115 @@
           <h1><a href="{{ home }}">{{ name }}</a></h1>
         {% endif %}
       </div>
-      <button class="navbar-toggler p-0 border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <img src="/image/catalog/icons/menu.svg" class="img-fluid" alt="menu">
-      </button>
+      <div class="d-flex align-items-center gap-3">
+        <ul class="list-unstyled mb-0">
+          <li class="d-lg-none d-block">
+            {{ cart }}
+          </li>
+        </ul>
+        <button class="navbar-toggler p-0 border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <img src="/image/catalog/icons/menu.svg" class="img-fluid" alt="menu">
+        </button>
+      </div>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         {{ menu }}
+        <li class="nav-item d-lg-block d-none">
+          {{ cart }}
+        </li>
+        <li class="nav-item">
+          <a href="{{ contact }}" class="btn btn_primary">Contact</a>
+        </li>
+        </ul>
       </div>
     </div>
   </nav>
   <div class="d-none">
     <div class="row">
-{#      <div class="col-md-5">{{ search }}</div>#}
-{#      <div id="header-cart" class="col-md-4 col-lg-3 mb-2">{{ cart }}</div>#}
+      {# <div class="col-md-5">{{ search }}</div>#}
+      {# <div id="header-cart" class="col-md-4 col-lg-3 mb-2">{{ cart }}</div>#}
     </div>
   </div>
 </header>
+<!-- Main Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-body">
+        <div class="col text-end">
+          <a href="javascript:void(0)" data-bs-dismiss="modal" aria-label="Close" class="text-light"><i class="bi bi-x-lg fs-4 lh-1"></i></a>
+        </div>
+        <nav>
+          <div class="nav nav-tabs mt-5 justify-content-between border-0" id="nav-tab" role="tablist">
+            <button class="modal_card nav-link stretched-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Personal <br /> Details</button>
+            <button class="modal_card nav-link stretched-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Hair Loss & <br />Family History</button>
+            <label for="upload" class="modal_card nav-link stretched-link" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Upload Your <br />Scalp Photo.</label>
+            <input type="file" id="upload" class="visually-hidden">
+          </div>
+        </nav>
+        <div class="tab-content col-lg-10 mx-auto mt-5" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+            <div class="modal_questions mt-4 d-none">
+              <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 25%">25%</div>
+              </div>
+              <div class="col-lg-8 mx-auto mt-4">
+                <h2><span>1.</span> Before we proceed further, can we get your name?</h2>
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="name1" placeholder="Name">
+                  <label for="name1">Name</label>
+                </div>
+                <a href="#" class="btn btn_primary mt-3">OK</a>
+              </div>
+            </div>
+            <div class="modal_questions mt-4 d-none">
+              <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 50%">50%</div>
+              </div>
+              <div class="col-lg-8 mx-auto mt-4">
+                <h2><span>2.</span> Phone</h2>
+                <div class="form-floating">
+                  <input type="number" class="form-control" id="ph" placeholder="Phone">
+                  <label for="ph">Phone</label>
+                </div>
+                <a href="#" class="btn btn_primary mt-3">OK</a>
+              </div>
+            </div>
+            <div class="modal_questions mt-4 d-none">
+              <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 75%">75%</div>
+              </div>
+              <div class="col-lg-8 mx-auto mt-4">
+                <h2><span>3.</span> E-mail</h2>
+                <div class="form-floating">
+                  <input type="email" class="form-control" id="em" placeholder="E-mail">
+                  <label for="em">E-mail</label>
+                </div>
+                <a href="#" class="btn btn_primary mt-3">OK</a>
+              </div>
+            </div>
+            <div class="modal_questions mt-4">
+              <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 100%">100%</div>
+              </div>
+              <div class="col-lg-8 mx-auto mt-4">
+                <h2><span>4.</span> Age</h2>
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="age" placeholder="Age">
+                  <label for="age">Age</label>
+                </div>
+                <a href="#" class="btn btn_primary mt-3">OK</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(window).on('load', function() {
+    // $('#exampleModal').modal('show');
+  });
+</script>
 <main>
 </body>

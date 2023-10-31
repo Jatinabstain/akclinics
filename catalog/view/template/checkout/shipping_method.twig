@@ -1,11 +1,13 @@
 <fieldset>
   <legend>{{ heading_title }}</legend>
-  <div class="input-group">
-    <span class="input-group-text"><i class="fa fa-truck"></i></span><input type="text" name="shipping_method" value="{{ shipping_method }}" placeholder="{{ entry_shipping_method }}" id="input-shipping-method" class="form-control" readonly/>
-    <button type="button" id="button-shipping-methods" class="btn btn-primary">{{ button_choose }}</button>
+  <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-text"><i class="fa fa-truck"></i></span><input type="text" name="shipping_method" value="{{ shipping_method }}" placeholder="{{ entry_shipping_method }}" id="input-shipping-method" class="form-control" readonly/>
+      <button type="button" id="button-shipping-methods" class="btn btn-primary">{{ button_choose }}</button>
+    </div>
+    <input type="hidden" name="code" value="{{ code }}" id="input-shipping-code"/>
+    <div id="error-shipping-method" class="invalid-feedback"></div>
   </div>
-  <input type="hidden" name="code" value="{{ code }}" id="input-shipping-code"/>
-  <div id="error-shipping-method" class="invalid-feedback"></div>
 </fieldset>
 <script type="text/javascript"><!--
 $('#button-shipping-methods').on('click', function() {
@@ -51,11 +53,11 @@ $('#button-shipping-methods').on('click', function() {
 
                         if (!json['shipping_methods'][i]['error']) {
                             for (j in json['shipping_methods'][i]['quote']) {
-                                html += '<div class="form-check">';
+                                html += '<div class="form-check mb-3">';
 
                                 var code = i + '-' + j.replaceAll('_', '-');
 
-                                html += '<input type="radio" name="shipping_method" value="' + json['shipping_methods'][i]['quote'][j]['code'] + '" id="input-shipping-method-' + code + '"';
+                                html += '<input type="radio" class="form-check-input shadow-none" name="shipping_method" value="' + json['shipping_methods'][i]['quote'][j]['code'] + '" id="input-shipping-method-' + code + '"';
 
                                 if (json['shipping_methods'][i]['quote'][j]['code'] == $('#input-shipping-code').val()) {
                                     html += ' checked';
@@ -71,7 +73,7 @@ $('#button-shipping-methods').on('click', function() {
                     }
 
                     html += '          <div class="text-end">';
-                    html += '            <button type="submit" id="button-shipping-method" class="btn btn-primary">{{ button_continue|escape('js') }}</button>';
+                    html += '            <button type="submit" id="button-shipping-method" class="btn btn_dark mt-3 ms-auto">{{ button_continue|escape('js') }}</button>';
                     html += '          </div>';
                     html += '        </form>';
                     html += '      </div>';

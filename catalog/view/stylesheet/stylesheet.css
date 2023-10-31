@@ -3,6 +3,7 @@
   --darkLight: #303030;
   --light: #ffffff;
   --cream: #fff8ee;
+  --border: #ebebeb;
   --primary: #f47920;
   --primaryDark: #be580f;
   --darkLighter: #636978;
@@ -23,7 +24,7 @@ main{
   background-color: var(--cream);
   padding: .651rem;
 }
-.top_head li:not(:last-child){
+.top_head .list-inline-item:not(:last-child){
   margin-right: .75rem;
 }
 .top_head li a{
@@ -48,7 +49,9 @@ header{
 .dropdown-menu{
   border-radius: 10px;
   padding: 0;
+  border: 0;
   overflow: hidden;
+  box-shadow: 0 0 10px -7px;
 }
 .dropdown-inner li a{
   padding: 8px .75rem;
@@ -70,6 +73,26 @@ header{
 }
 .btn_primary:hover{
   background-color: var(--darkLight);
+  color: var(--light);
+}
+.btn_danger{
+  background-color: var(--bs-danger);
+  transition: .5s ease-in-out;
+  color: var(--light);
+  border-radius: 0;
+  padding: .5rem .75rem;
+  text-transform: uppercase;
+  width: fit-content;
+  width: -moz-fit-content;
+  font-family: var(--sFont);
+}
+.btn_danger:hover{
+  background-color: var(--bs-danger);
+  color: var(--light);
+}
+.btn_primary:disabled{
+  background-color: var(--primary);
+  border-color: var(--primary);
   color: var(--light);
 }
 .nav_link{
@@ -594,6 +617,22 @@ footer li{
   background-color: var(--primary);
   color: var(--light);
 }
+.btn_dark_outline{
+  background-color: var(--light);
+  border: 1px solid var(--dark);
+  width: fit-content;
+  width: -moz-fit-content;
+  border-radius: 0;
+  color: var(--dark);
+  padding: 8px 1rem;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: .5s ease-in-out;
+}
+.btn_dark_outline:hover{
+  background-color: var(--dark);
+  color: var(--light);
+}
 .product-thumb .button-group {
   display: flex;
   border-top: 1px solid #ddd;
@@ -649,20 +688,20 @@ footer li{
   color: var(--primary);
 }
 #column-left .list-group a{
-  border-color: transparent;
   font-size: 14px;
   padding: .75rem 1.2rem;
+  border: 1px solid transparent !important;
   border-radius: 0 !important;
 }
 #column-left .list-group a:hover{
   color: var(--light);
   background-color: var(--primary);
-  border: 1px solid var(--primaryDark);
+  border: 1px solid var(--primaryDark) !important;
 }
 #column-left .list-group a.active{
   color: var(--light);
   background-color: var(--primary);
-  border: 1px solid var(--primaryDark);
+  border: 1px solid var(--primaryDark) !important;
 }
 /* product list */
 .price {
@@ -771,7 +810,7 @@ footer li{
 .form-group{
   margin-bottom: 1rem;
 }
-.form-group input, .form-group textarea{
+.form-group input, .form-group textarea, .form-group select{
   font-size: 14px;
   outline: none;
   border-radius: 0;
@@ -1195,4 +1234,277 @@ footer li{
 .form-check-input:checked{
   background-color: var(--primary);
   border-color: var(--primary);
+}
+.thumb_description p{
+  min-height: 42px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.cart_link{
+  line-height: 1;
+  font-size: 25px;
+  color: var(--light) !important;
+  position: relative;
+}
+.cart_link span{
+  font-size: 10px;
+  padding: 3px 5px;
+  font-weight: 100;
+  position: absolute;
+  right: 2px;
+  top: 3px;
+}
+@media only screen and (max-width: 992px) {
+  .cart_link{
+    font-size: 30px;
+  }
+  .cart_link span{
+    font-size: 12px;
+  }
+  .navbar-nav li:first-child{
+    margin-top: 1rem;
+  }
+  .navbar-nav li:last-child{
+    margin-top: .5rem;
+  }
+}
+.product_cart_name{
+  color: var(--darkLighter);
+}
+.product_cart_name a{
+  font-weight: 500;
+  color: var(--dark);
+  text-decoration: none;
+}
+.primary_text{
+  color: var(--primary);
+}
+.remove_product{
+  margin-top: 5px;
+  border: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--sFont);
+  color: var(--darkLighter) !important;
+}
+.remove_product i{
+  color: var(--success);
+}
+.product_cart_img img{
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+.cart_tbody td{
+  padding: .75rem .5rem;
+  vertical-align: middle;
+}
+.form_cart input, .form_cart button{
+  border-radius: 0;
+  box-shadow: none !important;
+  padding: 5px 0.75rem;
+}
+.form_cart button{
+  background-color: var(--success) !important;
+  border-color: var(--success) !important;
+  font-size: 20px;
+  line-height: 0;
+}
+.checkout_total td{
+  padding: 1rem .5rem;
+}
+.module_heading h2{
+  font-size: 25px;
+  font-weight: 400;
+}
+.modules_sidebar{
+  padding: 1rem;
+  border: 1px solid var(--bs-border-color);
+}
+.dropdown-menu li a{
+  padding: 0.5rem 1rem;
+  transition: .5s ease-in-out;
+}
+.dropdown-menu li a:hover{
+  background-color: var(--primary);
+  color: var(--light);
+}
+.my_account{
+  font-weight: 400;
+  font-family: var(--sFont);
+}
+.my_account::after {
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: -2px;
+  content: "\F282";
+  border: 0;
+  font-family: 'bootstrap-icons';
+}
+.form-group .input-group-text{
+  border-radius: 0;
+}
+.form-group button{
+  border-radius: 0;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+#column-left{
+  border-right: 1px solid #d6d6d6;
+}
+.line_divide{
+  margin: 0;
+  border: 1px solid #d6d6d6;
+}
+.account_heading h1{
+  color: var(--dark);
+  font-size: 25px;
+  font-weight: 500;
+  font-family: var(--sFont);
+}
+.account_heading h2{
+  color: var(--dark);
+  font-size: 25px;
+  font-weight: 500;
+  font-family: var(--sFont);
+}
+.card_account{
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background-color: var(--light);
+}
+.line{
+  border-color: var(--border);
+  opacity: 1;
+}
+.card_account a{
+  text-decoration: none;
+  color: var(--dark);
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: block;
+  margin-bottom: 0.35rem;
+  transition: all .6s ease-in-out;
+  background-color: #eee;
+}
+.success a{
+  color: var(--primary);
+  text-decoration: none;
+}
+.modal-backdrop{
+  --bs-backdrop-opacity: 0.8;
+}
+.modal_card{
+  position: relative;
+}
+.modal_card{
+  width: 30% !important;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--sFont);
+  color: var(--dark) !important;
+  background-color: #cecece !important;
+  border: 2px solid var(--light) !important;
+}
+.modal_card.active{
+  background-color: var(--primary) !important;
+  color: var(--light) !important;
+}
+.progress{
+  border-radius: 50px;
+}
+.progress-bar{
+  border-radius: 50px;
+  background-color: var(--primary);
+}
+.modal_questions h2{
+  /*text-align: center;*/
+  color: var(--light);
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: var(--sFont);
+}
+.modal_questions span{
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+.modal_questions .form-floating input{
+  font-size: 14px;
+  outline: none;
+  border: 0;
+  border-radius: 0;
+  padding: 10px 1rem;
+  border-bottom: 1.5px solid var(--primary);
+  box-shadow: none !important;
+  color: var(--primary) !important;
+  background-color: transparent !important;
+}
+.modal_questions .form-floating label{
+  padding-inline: 0;
+  color: var(--light) !important;
+  background-color: transparent !important;
+}
+.modal_questions .form-floating label::after{
+  background-color: transparent !important;
+}
+.modal_questions .btn_primary{
+  background-color: var(--primary) !important;
+}
+@media only screen and (max-width: 992px) {
+  .heading h1{
+    font-size: 30px;
+  }
+  .gradient_card {
+    padding: 30px 1rem 30px;
+  }
+  .btn_light{
+    z-index: 1;
+    position: relative;
+  }
+  .heading h3{
+    font-size: 30px;
+  }
+  .bottom_icon {
+    margin-top: 15px;
+  }
+  .bottom_icon img{
+    height: 50px;
+  }
+  .section {
+    padding: 30px 0 0;
+  }
+  .consultation_card{
+    padding: .25rem 0 .75rem;
+  }
+  .consultation_card::after{
+    width: 60px;
+  }
+  .consultation_content{
+    text-align: center;
+    margin: 1rem 0;
+  }
+  .testimonial_section{
+    padding: 90px 0;
+  }
+  .carousel_slide::after{
+    width: 80px;
+    height: 80px;
+  }
+  .info_cards::before, .info_cards::after{
+    display: none;
+  }
+  .blog_card h3{
+    font-size: 1rem;
+  }
 }

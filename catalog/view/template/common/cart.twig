@@ -1,4 +1,8 @@
-<div class="dropdown d-grid">
+<a href="{{ cart }}" class="nav-link nav_link cart_link" id="header-cart">
+    <i class="bi bi-cart2"></i>
+    <span class="badge rounded-pill bg-danger">{{ text_items }}</span>
+</a>
+<div class="dropdown d-grid d-none">
   <button type="button" data-bs-toggle="dropdown" class="btn btn-lg btn-inverse btn-block dropdown-toggle"><i class="fa-solid fa-cart-shopping"></i> {{ text_items }}</button>
   <ul class="dropdown-menu dropdown-menu-end p-2">
     {% if products or vouchers %}

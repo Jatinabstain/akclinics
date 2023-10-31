@@ -1,6 +1,6 @@
 {% if products %}
   <div class="table-responsive">
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered">
       <thead>
         <tr>
           <td class="text-center"><strong>{{ column_image }}</strong></td>
@@ -14,8 +14,8 @@
       <tbody>
         {% for product in products %}
           <tr>
-            <td class="text-center">{% if product.thumb %}<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"/></a>{% endif %}</td>
-            <td class="text-start"><a href="{{ product.href }}">{{ product.name }}</a></td>
+            <td class="text-center product_cart_img">{% if product.thumb %}<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"/></a>{% endif %}</td>
+            <td class="text-start product_cart_name"><a href="{{ product.href }}">{{ product.name }}</a></td>
             <td class="text-start">{{ product.model }}</td>
             <td class="text-end">{{ product.stock }}</td>
             <td class="text-end">
@@ -29,11 +29,11 @@
                 </div>
               {% endif %}
             </td>
-            <td class="text-end">
+            <td class="text-end pt-3">
               <form method="post" data-oc-toggle="ajax" data-oc-load="{{ wishlist }}" data-oc-target="#wishlist">
                 <input type="hidden" name="product_id" value="{{ product.product_id }}"/> <input type="hidden" name="quantity" value="{{ product.minimum }}"/>
-                <button type="submit" formaction="{{ add_to_cart }}" data-bs-toggle="tooltip" title="{{ button_cart }}" class="btn btn-primary"><i class="fa-solid fa-cart-shopping fa-fw"></i></button>
-                <button type="submit" formaction="{{ remove }}" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark fa-fw"></i></button>
+                <button type="submit" formaction="{{ add_to_cart }}" data-bs-toggle="tooltip" title="{{ button_cart }}" class="btn btn_primary"><i class="bi bi-cart2 fs-5 lh-1"></i></button>
+                <button type="submit" formaction="{{ remove }}" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn rounded-0 btn_danger"><i class="bi bi-x-lg fs-5 lh-1"></i></button>
               </form>
             </td>
           </tr>

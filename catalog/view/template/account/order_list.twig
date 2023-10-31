@@ -8,7 +8,9 @@
     </ul>
     <div class="row">{{ column_left }}
       <div id="content" class="col">{{ content_top }}
-        <h1>{{ heading_title }}</h1>
+        <div class="account_heading  mb-3">
+          <h1>{{ heading_title }}</h1>
+        </div>
         {% if orders %}
           <div class="table-responsive">
             <table class="table table-bordered table-hover">
@@ -32,7 +34,7 @@
                     <td class="text-start">{{ order.status }}</td>
                     <td class="text-end">{{ order.total }}</td>
                     <td class="text-start">{{ order.date_added }}</td>
-                    <td class="text-end"><a href="{{ order.view }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a></td>
+                    <td class="text-end"><a href="{{ order.view }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn_dark ms-auto"><i class="bi bi-eye fs-5 lh-1"></i></a></td>
                   </tr>
                 {% endfor %}
               </tbody>
@@ -45,7 +47,7 @@
         {% else %}
           <p>{{ text_no_results }}</p>
         {% endif %}
-        <div class="text-end"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+        <div class="text-end"><a href="{{ continue }}" class="btn btn_primary">{{ button_continue }}</a></div>
         {{ content_bottom }}</div>
       {{ column_right }}</div>
   </div>

@@ -11,14 +11,16 @@
       {% endif %}
       <div class="row">{{ column_left }}
         <div id="content" class="col">{{ content_top }}
-          <h1>{{ text_address_book }}</h1>
-          <div id="address">{{ list }}</div>
-          <div class="row">
-            <div class="col">
-              <a href="{{ back }}" class="btn btn-light">{{ button_back }}</a>
+            <div class="account_heading">
+                <h1>{{ text_address_book }}</h1>
             </div>
-            <div class="col text-end">
-              <a href="{{ add }}" class="btn btn-primary">{{ button_new_address }}</a>
+          <div id="address">{{ list }}</div>
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <a href="{{ back }}" class="btn btn_dark">{{ button_back }}</a>
+            </div>
+            <div class="col-auto">
+              <a href="{{ add }}" class="btn btn_primary">{{ button_new_address }}</a>
             </div>
           </div>
           {{ content_bottom }}</div>

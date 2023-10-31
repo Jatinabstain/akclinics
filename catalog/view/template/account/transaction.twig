@@ -8,8 +8,10 @@
     </ul>
     <div class="row">{{ column_left }}
       <div id="content" class="col">{{ content_top }}
-        <h1>{{ heading_title }}</h1>
-        <p>{{ text_total }} <b>{{ total }}</b>.</p>
+        <div class="account_heading">
+          <h1>{{ heading_title }}</h1>
+          <p>{{ text_total }} <b>{{ total }}</b>.</p>
+        </div>
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
@@ -38,7 +40,7 @@
           <div class="col-sm-6 text-start">{{ pagination }}</div>
           <div class="col-sm-6 text-end">{{ results }}</div>
         </div>
-        <div class="text-end"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+        <div class="text-end"><a href="{{ continue }}" class="btn btn_primary">{{ button_continue }}</a></div>
         {{ content_bottom }}</div>
       {{ column_right }}</div>
   </div>

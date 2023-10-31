@@ -13,7 +13,9 @@
           {% if register or payment_address or shipping_address %}
             <div class="col-md-7 mb-3">
               {% if register %}
-                <div id="checkout-register">{{ register }}</div>
+                  <div class="register_link text-start">
+                      <div id="checkout-register">{{ register }}</div>
+                  </div>
               {% endif %}
               {% if payment_address %}
                 <div id="checkout-payment-address">{{ payment_address }}</div>

@@ -3,7 +3,9 @@
   <div class="content">
     <div class="description">
       <h4><a href="{{ href }}">{{ name }}</a></h4>
-      <p class="mb-0 text-center">{{ description }}</p>
+        <div class="thumb_description">
+            <p class="mb-0 text-center">{{ description }}</p>
+        </div>
         {% if review_status and rating %}
             <div class="rating text-center">
                 {% for i in 1..5 %}
