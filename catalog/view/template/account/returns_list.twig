@@ -8,7 +8,9 @@
     </ul>
     <div class="row">{{ column_left }}
       <div id="content" class="col">{{ content_top }}
-        <h1>{{ heading_title }}</h1>
+        <div class="account_heading mb-3">
+          <h1>{{ heading_title }}</h1>
+        </div>
         {% if returns %}
           <div class="table-responsive">
             <table class="table table-bordered table-hover">
@@ -30,7 +32,7 @@
                     <td class="text-start">{{ return.date_added }}</td>
                     <td class="text-end">{{ return.order_id }}</td>
                     <td class="text-start">{{ return.name }}</td>
-                    <td class="text-end"><a href="{{ return.href }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a></td>
+                    <td class="text-end"><a href="{{ return.href }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn_dark ms-auto"><i class="fa-solid fa-eye"></i></a></td>
                   </tr>
                 {% endfor %}
               </tbody>

@@ -1,0 +1,29 @@
+<div id="hair-test" class="container">
+        <div id="content">
+            <nav>
+                <div id="nav-tab" class="nav nav-tabs mt-5 justify-content-between border-0">
+                    {% for category in categories %}
+                        <button id="category_{{ category.category_id }}" type="button" class="modal_card nav-link stretched-link test-categories">{{ category.name }}</button>
+                    {% endfor %}
+                </div>
+            </nav>
+            <form action="{{ save }}" id="hair-test-form" data-oc-toggle="ajax">
+                <div id="nav-tabContent" class="tab-content col-lg-10 mx-auto mt-5">
+                    <div class="tab-pane fade show active" id="hair-test-question"></div>
+                </div>
+            </form>
+        </div>
+<script type="text/javascript">
+    function getQuestion(parent_id=null) {
+        $.ajax({
+            url: "{{ question }}",
+            method: "POST",
+            dataType: "html",
+            data: "parent_id="+parent_id,
+            success: function (json) {
+                $("#hair-test-question").html(json)
+            }
+        })
+    }
+    getQuestion();
+</script>

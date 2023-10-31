@@ -1,0 +1,54 @@
+<form id="form-callback" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#callback">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <td class="text-center" style="width: 1px;">
+                    <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/>
+                </td>
+                <td class="text-start">
+                    <a href="{{ sort_name }}"{% if sort == 'name' %} class="{{ order|lower }}"{% endif %}>{{ column_name }}</a>
+                </td>
+                <td class="text-start">
+                    <a href="{{ sort_age }}"{% if sort == 'age' %} class="{{ order|lower }}"{% endif %}>{{ column_age }}</a>
+                </td>
+                <td class="text-start">
+                    <a href="{{ sort_email }}"{% if sort == 'email' %} class="{{ order|lower }}"{% endif %}>{{ column_email }}</a>
+                </td>
+                <td class="text-start">
+                    <a href="{{ sort_phone }}"{% if sort == 'phone' %} class="{{ order|lower }}"{% endif %}>{{ column_phone }}</a>
+                </td>
+                <td class="text-start">
+                    <a href="{{ sort_ip_address }}"{% if sort == 'ip_address' %} class="{{ order|lower }}"{% endif %}>{{ column_ip_address }}</a>
+                </td>
+                <td class="text-end">
+                    <a href="{{ sort_date_added }}"{% if sort == 'date_added' %} class="{{ order|lower }}"{% endif %}>{{ column_date_added }}</a>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            {% if callback %}
+                {% for result in callback %}
+                    <tr>
+                        <td class="text-center"><input type="checkbox" name="selected[]" value="{{ result.id }}" class="form-check-input"/></td>
+                        <td class="text-start">{{ result.name }}</td>
+                        <td class="text-start">{{ result.age }}</td>
+                        <td class="text-start">{{ result.email }}</td>
+                        <td class="text-start">{{ result.phone }}</td>
+                        <td class="text-start">{{ result.ip_address }}</td>
+                        <td class="text-end">{{ result.date_added }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td class="text-center" colspan="7">{{ text_no_results }}</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 text-start">{{ pagination }}</div>
+        <div class="col-sm-6 text-end">{{ results }}</div>
+    </div>
+</form>

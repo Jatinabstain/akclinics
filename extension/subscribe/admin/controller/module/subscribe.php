@@ -58,4 +58,5 @@ class Subscribe extends \Opencart\System\Engine\Controller {
         $this->load->model('extension/subscribe/module/subscribe');
         $this->model_extension_subscribe_module_subscribe->install();
 	}
+
 }
