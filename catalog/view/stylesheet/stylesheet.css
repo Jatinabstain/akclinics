@@ -279,12 +279,11 @@ header{
   font-family: var(--sFont);
 }
 .btn_light{
-  background-color: var(--light);
   width: fit-content;
   width: -moz-fit-content;
   display: flex;
   align-items: center;
-  color: #585858;
+  color: #585858 !important;
   border-radius: 0;
   margin: auto;
   padding: 10px 1rem;
@@ -565,7 +564,7 @@ header{
   color: var(--cream) !important;
 }
 .btn_light{
-  background-color: var(--cream);
+  background-color: var(--cream) !important;
   transition: .5s ease-in-out;
   color: var(--dark);
   border-radius: 0;
@@ -1355,6 +1354,29 @@ footer li{
   right: 2px;
   top: 3px;
   font-family: var(--sFont);
+}
+.checkout-payment .btn-primary{
+  background-color: var(--primary);
+  transition: .5s ease-in-out;
+  color: var(--light);
+  border-radius: 0;
+  padding: .5rem .75rem;
+  text-transform: uppercase;
+  width: fit-content;
+  width: -moz-fit-content;
+  font-family: var(--sFont);
+  border: 0;
+}
+.checkout-payment .btn-primary:hover{
+  background-color: var(--darkLight);
+  color: var(--light);
+}
+.form-floating > .form-control:not(:placeholder-shown) ~ label::after{
+  background-color: transparent !important;
+}
+input{
+  font-family: var(--sFont);
+  font-weight: 400;
 }
 @media only screen and (max-width: 992px){
   .cart_link{
