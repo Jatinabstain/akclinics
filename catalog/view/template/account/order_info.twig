@@ -108,7 +108,10 @@
                   <td class="text-end">{{ product.price }}</td>
                   <td class="text-end">{{ product.total }}</td>
                   <td class="text-end text-nowrap">{% if product.reorder %}<a href="{{ product.reorder }}" data-bs-toggle="tooltip" title="{{ button_reorder }}" class="btn btn_primary"><i class="bi bi-cart2 fs-5 lh-1"></i></a>{% endif %}
-                    <a href="{{ product.return }}" data-bs-toggle="tooltip" title="{{ button_return }}" class="btn btn_danger"><i class="fa-solid fa-reply"></i></a></td>
+                    {% if product.return %}
+                    <a href="{{ product.return }}" data-bs-toggle="tooltip" title="{{ button_return }}" class="btn btn_danger"><i class="fa-solid fa-reply"></i></a>
+                  {% endif %}
+                  </td>
                 </tr>
               {% endfor %}
 

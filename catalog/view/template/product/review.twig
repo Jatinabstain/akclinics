@@ -1,101 +1,107 @@
 <form id="form-review" class="review_form">
-  <div id="review">{{ list }}</div>
-  <h2 class="mb-3">{{ text_write }}</h2>
-  {% if review_guest %}
-    <div class="form-group required">
-      <label for="input-author" class="form-label">{{ entry_author }}</label>
-      <input type="text" name="author" value="{{ customer }}" id="input-author" class="form-control"/>
-      <div id="error-author" class="invalid-feedback"></div>
-    </div>
-    <div class="form-group required">
-      <label for="input-text" class="form-label">{{ entry_review }}</label>
-      <textarea name="text" rows="5" id="input-text" class="form-control"></textarea>
-      <div id="error-text" class="invalid-feedback"></div>
-      <div class="invalid-feedback">{{ text_note }}</div>
-    </div>
-    <div class="row mb-3 required">
-      <label class="form-label mb-3">{{ entry_rating }}</label>
-      <div id="input-rating">
-        {{ entry_bad }}&nbsp;
-        <input type="radio" name="rating" value="1" class="form-check-input"/>
-        &nbsp;
-        <input type="radio" name="rating" value="2" class="form-check-input"/>
-        &nbsp;
-        <input type="radio" name="rating" value="3" class="form-check-input"/>
-        &nbsp;
-        <input type="radio" name="rating" value="4" class="form-check-input"/>
-        &nbsp;
-        <input type="radio" name="rating" value="5" class="form-check-input"/>
-        &nbsp;{{ entry_good }}
-      </div>
-      <div id="error-rating" class="invalid-feedback"></div>
-    </div>
-    {{ captcha }}
-    <div class="row gy-4">
-      <div class="col-auto">
-        <a href="{{ back }}" class="btn btn_dark">{{ button_back }}</a>
-      </div>
-      <div class="col-auto text-lg-end">
-        <button type="submit" id="button-review" class="btn btn_primary text-capitalize">Sign Up & Review</button>
-      </div>
-    </div>
-  {% else %}
-    {{ text_login }}
-  {% endif %}
+    <div id="review">{{ list }}</div>
+    <h2 class="mb-3">{{ text_write }}</h2>
+    {% if review_guest %}
+        <div class="form-group required">
+            <label for="input-author" class="form-label">{{ entry_author }}</label>
+            <input type="text" name="author" value="{{ customer }}" id="input-author" class="form-control"/>
+            <div id="error-author" class="invalid-feedback"></div>
+        </div>
+        <div class="form-group required">
+            <label for="input-text" class="form-label">{{ entry_review }}</label>
+            <textarea name="text" rows="5" id="input-text" class="form-control"></textarea>
+            <div id="error-text" class="invalid-feedback"></div>
+            <div class="invalid-feedback">{{ text_note }}</div>
+        </div>
+        <div class="row mb-3 required">
+            <label class="form-label mb-3">{{ entry_rating }}</label>
+            <div id="input-rating">
+                <div id="full-stars-example-two">
+                    <div class="rating-group">
+                        <input disabled checked class="rating__input rating__input--none" name="rating" id="rating3-none" value="0" type="radio">
+                        <label aria-label="1 star" class="rating__label" for="rating3-1"><i
+                                    class="rating__icon rating__icon--star fa fa-star"></i></label>
+                        <input class="rating__input" name="rating" id="rating3-1" value="1" type="radio">
+                        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i
+                                    class="rating__icon rating__icon--star fa fa-star"></i></label>
+                        <input class="rating__input" name="rating" id="rating3-2" value="2" type="radio">
+                        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i
+                                    class="rating__icon rating__icon--star fa fa-star"></i></label>
+                        <input class="rating__input" name="rating" id="rating3-3" value="3" type="radio">
+                        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i
+                                    class="rating__icon rating__icon--star fa fa-star"></i></label>
+                        <input class="rating__input" name="rating" id="rating3-4" value="4" type="radio">
+                        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i
+                                    class="rating__icon rating__icon--star fa fa-star"></i></label>
+                        <input class="rating__input" name="rating" id="rating3-5" value="5" type="radio">
+                    </div>
+                </div>
+            </div>
+            <div id="error-rating" class="invalid-feedback"></div>
+        </div>
+        {{ captcha }}
+        <div class="row gy-4">
+            <div class="col-auto text-lg-end">
+                <button type="submit" id="button-review" class="btn btn_primary text-capitalize">Submit</button>
+            </div>
+        </div>
+    {% else %}
+        {{ text_login }}
+    {% endif %}
 </form>
 <script type="text/javascript"><!--
-$('#review').on('click', '.pagination a', function(e) {
-    e.preventDefault();
+    $('#review').on('click', '.pagination a', function (e) {
+        e.preventDefault();
 
-    $('#review').load(this.href);
-});
-
-// Forms
-$('#form-review').on('submit', function(e) {
-    e.preventDefault();
-
-    var element = this;
-
-    $.ajax({
-        url: 'index.php?route=product/review.write&language={{ language }}&review_token={{ review_token }}&product_id={{ product_id }}',
-        type: 'post',
-        data: $('#form-review').serialize(),
-        dataType: 'json',
-        cache: false,
-        contentType: 'application/x-www-form-urlencoded',
-        processData: false,
-        beforeSend: function() {
-            $('#button-review').button('loading');
-        },
-        complete: function() {
-            $('#button-review').button('reset');
-        },
-        success: function(json) {
-            $('.alert-dismissible').remove();
-            $('#form-review').find('.is-invalid').removeClass('is-invalid');
-            $('#form-review').find('.invalid-feedback').removeClass('d-block');
-
-            if (json['error']) {
-                if (json['error']['warning']) {
-                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-                }
-
-                for (key in json['error']) {
-                    $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
-                    $('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
-                }
-            }
-
-            if (json['success']) {
-                $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                $('#input-text').val('');
-                $('#input-rating input[type=\'radio\']').prop('checked', false);
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
+        $('#review').load(this.href);
     });
-});
-//--></script>
+
+    // Forms
+    $('#form-review').on('submit', function (e) {
+        e.preventDefault();
+
+        var element = this;
+
+        $.ajax({
+            url: 'index.php?route=product/review.write&language={{ language }}&review_token={{ review_token }}&product_id={{ product_id }}',
+            type: 'post',
+            data: $('#form-review').serialize(),
+            dataType: 'json',
+            cache: false,
+            contentType: 'application/x-www-form-urlencoded',
+            processData: false,
+            beforeSend: function () {
+                $('#button-review').button('loading');
+            },
+            complete: function () {
+                $('#button-review').button('reset');
+            },
+            success: function (json) {
+                $('.alert-dismissible').remove();
+                $('#form-review').find('.is-invalid').removeClass('is-invalid');
+                $('#form-review').find('.invalid-feedback').removeClass('d-block');
+
+                if (json['error']) {
+                    if (json['error']['warning']) {
+                        $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                    }
+
+                    for (key in json['error']) {
+                        $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
+                        $('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
+                    }
+                }
+
+                if (json['success']) {
+                    $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+                    $('#input-text').val('');
+                    $('#input-rating input[type=\'radio\']').prop('checked', false);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+    });
+    //--></script>

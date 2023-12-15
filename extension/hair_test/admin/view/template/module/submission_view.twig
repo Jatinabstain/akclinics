@@ -1,0 +1,38 @@
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="float-end">
+                <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i></a>
+            </div>
+            <h1>{{ heading_view }}</h1>
+            <ol class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header"><i class="fa-solid fa-list"></i> {{ heading_view }}</div>
+            <div class="card-body">
+            {% if answers %}
+                {% for answer in answers %}
+                    <div class="card mb-3">
+                        <div class="card-header"><strong>Q. {{ answer.question }}</strong></div>
+                        <div class="card-body">
+                            {% if answer.question == 'Upload Your Scalp Photo' %}
+                                Ans. <a href="{{ answer.download }}" target="_blank">View Photo</a>
+                                {% else %}
+                                    Ans. {{ answer.answer }}
+                            {% endif %}
+
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -49,7 +49,66 @@ class Menu extends \Opencart\System\Engine\Controller {
 				];
 			}
 		}
+        $data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
+        $data['informations'] = [];
 
+        $this->load->model('catalog/information');
+        foreach ($this->model_catalog_information->getInformations() as $result) {
+            if ($result['top']) {
+                $external = false;
+                $href = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . $result['information_id']);
+                if ($result['external_url']) {
+                    $href = $result['external_url'];
+                    $external = true;
+                }
+                $parent_data = [];
+                $parent = $this->model_catalog_information->getInformations($result['information_id']);
+                if ($parent) {
+                    foreach ($parent as $value) {
+                        $external = false;
+                        $href = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . $value['information_id']);
+                        if ($value['external_url']) {
+                            $href = $value['external_url'];
+                            $external = true;
+                        }
+                        $parent_data[] = [
+                            'information_id' => $value['information_id'],
+                            'title' => $value['title'],
+                            'href'  => $href,
+                            'external'  => $external,
+                        ];
+                    }
+                }
+                if ((int) $result['information_id'] === 6) {
+                    $this->load->model('catalog/product');
+                    $filter_data = [
+                        'filter_sub_category' => false,
+                    ];
+                    $products = $this->model_catalog_product->getProducts($filter_data);
+                    $data['products'] = [];
+                    if ($products) {
+                        foreach ($products as $product) {
+                            $parent_data[] = [
+                                'product_id'  => $product['product_id'],
+                                'title'        => $product['name'],
+                                'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id']),
+                                'external'  => false,
+                            ];
+                        }
+                    }
+                }
+                if ((int) $result['information_id'] === 5 ) {
+                    $external = false;
+                }
+                $data['informations'][] = [
+                    'information_id' => $result['information_id'],
+                    'title' => $result['title'],
+                    'href'  => $href,
+                    'external'  => $external,
+                    'children'  => $parent_data,
+                ];
+            }
+        }
 		return $this->load->view('common/menu', $data);
 	}
 }

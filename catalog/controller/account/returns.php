@@ -10,6 +10,9 @@ class Returns extends \Opencart\System\Engine\Controller {
 	 * @return void
 	 */
 	public function index(): void {
+        if (!ALLOW_RETURN) {
+            exit;
+        }
 		$this->load->language('account/returns');
 
 		if (isset($this->request->get['page'])) {
@@ -193,6 +196,9 @@ class Returns extends \Opencart\System\Engine\Controller {
 	 * @return void
 	 */
 	public function add(): void {
+	    if (!ALLOW_RETURN) {
+            exit;
+        }
 		$this->load->language('account/returns');
 
 		$this->document->setTitle($this->language->get('heading_title'));

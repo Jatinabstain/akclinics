@@ -1,5 +1,16 @@
 </main>
 {{ callback }}
+<div class="modal fade" id="consultation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">FREE CONSULTATION</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="consultation-body"></div>
+    </div>
+  </div>
+</div>
 <footer>
   <div class="container">
     <div class="row gy-4">
@@ -61,4 +72,74 @@
 {% for script in scripts %}
   <script src="{{ script.href }}" type="text/javascript"></script>
 {% endfor %}
-</body></html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $(document).ready(function() {
+    $('.multiple_causes').owlCarousel({
+      loop: true,
+      margin: 10,
+      responsiveClass: true,
+      dots: true,
+      responsive: {
+        0: {
+          items: 1,
+          nav: false,
+          dots: true
+        },
+        600: {
+          items: 2,
+          nav: false,
+          dots: true
+        },
+        1000: {
+          items: 5,
+          nav: false,
+          dots: true
+        }
+      }
+    });
+    $('.key_ingredients').owlCarousel({
+      loop: true,
+      margin: 10,
+      responsiveClass: true,
+      dots: true,
+      responsive: {
+        0: {
+          items: 2,
+          nav: false,
+          dots: true
+        },
+        600: {
+          items: 3,
+          nav: false,
+          dots: true
+        },
+        1000: {
+          items: 6,
+          nav: false,
+          dots: true
+        }
+      }
+    });
+  });
+  if ($(window).width() > 992) {
+    var winWidth = $(window).width(),
+            dropdown = $('.dropdown'),
+            dropdownMenu = $('.dropdown-menu');
+
+    if (winWidth >= 1268) {
+      dropdown.on('mouseenter', function () {
+        $(this).addClass('show')
+                .children(dropdownMenu).addClass('show');
+      });
+      dropdown.on('mouseleave', function () {
+        $(this).removeClass('show')
+                .children(dropdownMenu).removeClass('show');
+      });
+    } else {
+      dropdown.off('mouseenter mouseleave');
+    }
+  }
+</script>
+</body>
+</html>

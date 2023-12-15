@@ -30,11 +30,8 @@
                 </div>
                 <div class="col-lg-4 order-lg-2 order-1">
                     <div class="modules_sidebar">
+                        {{ order_summary }}
                         {% if modules %}
-{#                            <div class="module_heading">#}
-{#                                <h2>{{ text_next }}</h2>#}
-{#                            </div>#}
-{#                            <p>{{ text_next_choice }}</p>#}
                             <div id="accordion" class="accordion">
                                 {% for module in modules %}
                                     {{ module }}
@@ -72,7 +69,6 @@ $('#shopping-cart').on('submit', 'form', function (e) {
             $(button).button('reset');
         },
         success: function (json) {
-            console.log(json);
 
             if (json['redirect']) {
                 location = json['redirect'];
@@ -88,6 +84,7 @@ $('#shopping-cart').on('submit', 'form', function (e) {
 
             $('#shopping-cart').load('index.php?route=checkout/cart.list&language={{ language }}', {}, function () {
                 $('#header-cart').load('index.php?route=common/cart.info&language={{ language }}');
+                $('#order-summary').load('index.php?route=checkout/cart.orderSummary&language={{ language }}');
             });
         },
         error: function (xhr, ajaxOptions, thrownError) {

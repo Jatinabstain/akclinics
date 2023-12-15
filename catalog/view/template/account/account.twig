@@ -21,9 +21,7 @@
               <ul class="list-unstyled">
                 <a href="{{ edit }}">{{ text_edit }}</a>
                 <a href="{{ password }}">{{ text_password }}</a>
-                <a href="{{ payment_method }}">{{ text_payment_method }}</a>
                 <a href="{{ address }}">{{ text_address }}</a>
-                <a href="{{ wishlist }}">{{ text_wishlist }}</a>
               </ul>
             </div>
           </div>
@@ -35,11 +33,10 @@
               </div>
               <ul class="list-unstyled">
                 <a href="{{ order }}">{{ text_order }}</a>
-                {% if reward %}
-                  <a href="{{ reward }}">{{ text_reward }}</a>
-                {% endif %}
+                {% if ALLOW_RETURN %}
                 <a href="{{ return }}">{{ text_return }}</a>
-                <a href="{{ transaction }}">{{ text_transaction }}</a>
+                {% endif %}
+
               </ul>
             </div>
           </div>

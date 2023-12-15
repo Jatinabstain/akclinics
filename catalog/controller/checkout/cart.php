@@ -58,6 +58,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 			}
 
 			$data['list'] = $this->load->controller('checkout/cart.getList');
+			$data['order_summary'] = $this->load->controller('checkout/cart.getOrderSummary');
 
 			$data['modules'] = [];
 
@@ -111,6 +112,54 @@ class Cart extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->getList());
 	}
 
+    public function orderSummary(): void {
+        $this->load->model('checkout/cart');
+
+        $this->response->setOutput($this->getOrderSummary());
+    }
+
+    /**
+     * @return string
+     */
+	public function getOrderSummary(): string
+    {
+
+        $data['totals'] = [];
+
+        // Display prices
+        if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+            $price_status = true;
+        } else {
+            $price_status = false;
+        }
+        $totals = [];
+        $taxes = $this->cart->getTaxes();
+        $total = 0;
+
+        // Display prices
+        if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+            ($this->model_checkout_cart->getTotals)($totals, $taxes, $total);
+            $tax = 0;
+            foreach ($totals as $result) {
+                if ($result['code'] === 'tax') {
+                    $tax += $result['value'];
+                }
+            }
+            foreach ($totals as $result) {
+                if ($result['code'] === 'sub_total') {
+                    $result['value'] += $tax;
+                }
+                $data['totals'][] = [
+                    'code' => $result['code'],
+                    'title' => $result['title'],
+                    'text'  => $price_status ? $this->currency->format($result['value'], $this->session->data['currency']) : ''
+                ];
+
+            }
+        }
+        return $this->load->view('checkout/order_summary', $data);
+    }
+    
 	/**
 	 * @return string
 	 */
@@ -256,7 +305,11 @@ class Cart extends \Opencart\System\Engine\Controller {
 		}
 
 		$this->load->model('catalog/product');
-
+        if (isset($this->request->post['cart_type'])) {
+            $cart_type = $this->request->post['cart_type'];
+        } else {
+            $cart_type = 'buy_cart';
+        }
 		$product_info = $this->model_catalog_product->getProduct($product_id);
 
 		if ($product_info) {
@@ -311,6 +364,9 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 			$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_id), $product_info['name'], $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
 
+            if ($cart_type === 'buy_now') {
+                $json['redirect'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'), true);
+            }
 			// Unset all shipping and payment methods
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
@@ -354,6 +410,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 			if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
 				$json['success'] = $this->language->get('text_edit');
+
 			} else {
 				$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
 			}

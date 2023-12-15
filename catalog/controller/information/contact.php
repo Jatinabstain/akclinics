@@ -107,7 +107,8 @@ class Contact extends \Opencart\System\Engine\Controller {
 		$keys = [
 			'name',
 			'email',
-			'enquiry'
+			'phone',
+			'enquiry',
 		];
 
 		foreach ($keys as $key) {
@@ -118,6 +119,9 @@ class Contact extends \Opencart\System\Engine\Controller {
 
 		if ((oc_strlen($this->request->post['name']) < 3) || (oc_strlen($this->request->post['name']) > 32)) {
 			$json['error']['name'] = $this->language->get('error_name');
+		}
+		if ((oc_strlen($this->request->post['phone']) < 10) || (oc_strlen($this->request->post['phone']) > 13)) {
+			$json['error']['phone'] = $this->language->get('error_phone');
 		}
 
 		if (!filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
@@ -142,6 +146,15 @@ class Contact extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+		    $message = '<p>Hi Admin,</p>';
+		    $message .= '<p>A user has been submitted the contact form.</p>';
+		    $message .= '<p>Please find the details as follow:</p>';
+		    $message .= '<p>Name: '.$this->request->post['name'].'</p>';
+		    $message .= '<p>Email: '.$this->request->post['email'].'</p>';
+		    $message .= '<p>Phone: '.$this->request->post['phone'].'</p>';
+		    $message .= '<p>Message: '.nl2br($this->request->post['enquiry']).'</p>';
+		    $message .= '<p>Thanks,</p>';
+		    $message .= '<p>Team '.$this->config->get('config_name').'</p>';
 			if ($this->config->get('config_mail_engine')) {
 				$mail_option = [
 					'parameter'     => $this->config->get('config_mail_parameter'),
@@ -159,7 +172,7 @@ class Contact extends \Opencart\System\Engine\Controller {
 				$mail->setReplyTo($this->request->post['email']);
 				$mail->setSender(html_entity_decode($this->request->post['name'], ENT_QUOTES, 'UTF-8'));
 				$mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['name']), ENT_QUOTES, 'UTF-8'));
-				$mail->setText($this->request->post['enquiry']);
+				$mail->setHtml($message);
 				$mail->send();
 			}
 
@@ -190,7 +203,13 @@ class Contact extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('information/contact', 'language=' . $this->config->get('config_language'))
 		];
 
-		$data['text_message'] = $this->language->get('text_message');
+		$data['text_message'] = '
+		    <section class="thanks_tab">
+                <img src="/image/catalog/thank-you.png" class="img-fluid" alt="Thanks">
+                <h2>Thank You for Contacting Us!</h2>
+                <p>We have received your message. We will get back to you shortly.</p>
+            </section>
+		';
 
 		$data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 

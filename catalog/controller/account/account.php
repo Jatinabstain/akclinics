@@ -20,6 +20,7 @@ class Account extends \Opencart\System\Engine\Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
+		$data['ALLOW_RETURN'] = ALLOW_RETURN;
 		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = [

@@ -10,18 +10,20 @@
       <div id="content">
         {{ content_top }}
         <div class="row">
-          <div class="col-lg-4 order-lg-1 order-2">
+          <div class="col-lg-6 order-lg-1 order-2">
               <form id="form-login" action="{{ login }}" method="post" data-oc-toggle="ajax">
                 <div class="form_heading mb-4">
                   {# <h1>{{ text_returning_customer }}</h1>#}
                   {# <p><strong>{{ text_i_am_returning_customer }}</strong></p>#}
                   <h1>Get Start Shopping</h1>
                 </div>
-                <div class="form-group">
+                <div class="form-floating form-group mb-3">
                   <input type="text" name="email" value="{{ email }}" autocomplete="false" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+                  <label for="input-email">{{ entry_email }}</label>
                 </div>
-                <div class="form-group mb-3">
+                <div class="form-floating form-group mb-3">
                   <input type="password" name="password" value="{{ password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control mb-1"/>
+                  <label for="input-password">{{ entry_password }}</label>
                 </div>
                 <div class="text-end mb-3">
                   <a href="{{ forgotten }}" class="forgot_btn">{{ text_forgotten }}</a>
@@ -35,7 +37,7 @@
                 </div>
               </form>
           </div>
-          <div class="col-lg-8 order-lg-2 order-1">
+          <div class="col-lg-6 order-lg-2 order-1">
             <div class="login_img">
               <img src="/image/catalog/icons/login-vector.svg" class="img-fluid d-block mx-auto" alt="login">
             </div>

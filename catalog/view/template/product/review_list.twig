@@ -14,7 +14,7 @@
             {% endfor %}
           </div>
         </div>
-        <p>"{{ review.text }}"</p>
+        <p class="readmore">"{{ review.text }}"</p>
       </div>
     {% endfor %}
     <div class="text-end">{{ pagination }}</div>
@@ -22,3 +22,21 @@
     <p class="text-center">{{ text_no_results }}</p>
   {% endif %}
 </div>
+<style>
+    .read-more-link,
+    .read-less-link {
+        color: var(--success);
+        text-decoration: none;
+    }
+</style>
+<script>
+    $(function () {
+        $(".readmore").moreLess({
+            moreLabel: "... Read more",
+            lessLabel: "... Read less",
+            moreClass: "read-more-link",
+            lessClass: "read-less-link",
+            wordsCount: 50,
+        });
+    });
+</script>

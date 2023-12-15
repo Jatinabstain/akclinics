@@ -35,6 +35,7 @@ class Questions extends \Opencart\System\Engine\Controller
 
             $data['delete'] = $this->url->link('extension/hair_test/module/questions.delete', 'user_token=' . $this->session->data['user_token'] . '&category_id=' . $category_id);
             $data['add'] = $this->url->link('extension/hair_test/module/questions.form', 'user_token=' . $this->session->data['user_token'] . '&category_id=' . $category_id);
+            $data['back'] = $this->url->link('extension/hair_test/module/category', 'user_token=' . $this->session->data['user_token']);
 
             $data['header'] = $this->load->controller('common/header');
             $data['column_left'] = $this->load->controller('common/column_left');

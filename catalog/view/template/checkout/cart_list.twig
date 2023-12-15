@@ -69,13 +69,5 @@
         </tr>
       {% endfor %}
     </tbody>
-    <tfoot id="checkout-total" class="checkout_total">
-      {% for total in totals %}
-        <tr>
-          <td colspan="5" class="text-end"><strong>{{ total.title }}</strong></td>
-          <td class="text-end">{{ total.text }}</td>
-        </tr>
-      {% endfor %}
-    </tfoot>
   </table>
 </div>

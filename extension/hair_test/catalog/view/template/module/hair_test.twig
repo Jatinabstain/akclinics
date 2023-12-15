@@ -1,9 +1,16 @@
+{{ header }}
+<script src="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <div id="hair-test" class="container">
-        <div id="content">
-            <nav>
-                <div id="nav-tab" class="nav nav-tabs mt-5 justify-content-between border-0">
+        <div id="content" class="col-lg-9 mx-auto">
+            <nav class="test_nav">
+                <div class="d-flex justify-content-between mt-4 mb-3 w-100">
+                    <a href="javascript:void(0)" data-attr="" class="text_link prev_link d-none"><i class="bi bi-arrow-left"></i> Previous</a>
+                    <a href="{{ home_link }}" class="btn btn_primary_outline ms-auto">Exit</a>
+                </div>
+                <div id="nav-tab" class="nav nav-pills nav-fill form_pills gap-3 mb-3">
                     {% for category in categories %}
-                        <button id="category_{{ category.category_id }}" type="button" class="modal_card nav-link stretched-link test-categories">{{ category.name }}</button>
+                        <button id="category_{{ category.category_id }}" type="button" class="nav-link test-categories">{{ category.name }}</button>
                     {% endfor %}
                 </div>
             </nav>
@@ -13,6 +20,8 @@
                 </div>
             </form>
         </div>
+
+</div>
 <script type="text/javascript">
     function getQuestion(parent_id=null) {
         $.ajax({
@@ -26,4 +35,8 @@
         })
     }
     getQuestion();
+    $(document).on("click", '.prev_link', function () {
+        const data = $(this).attr("data-attr");
+        getQuestion(data);
+    })
 </script>

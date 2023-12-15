@@ -15,68 +15,70 @@
             <fieldset>
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="form-group required">
-                            <label for="input-firstname" class="form-label">{{ entry_firstname }}</label>
+                        <div class="form-floating mb-3 required">
                             <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control"/>
+                            <label for="input-firstname" class="form-label">{{ entry_firstname }}</label>
                             <div id="error-firstname" class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group required">
-                            <label for="input-lastname" class="form-label">{{ entry_lastname }}</label>
+                        <div class="form-floating mb-3 required">
                             <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control"/>
+                            <label for="input-lastname" class="form-label">{{ entry_lastname }}</label>
                             <div id="error-lastname" class="invalid-feedback"></div>
                         </div>
                     </div>
                 </div>
-              <div class="form-group">
-                  <label for="input-company" class="form-label">{{ entry_company }}</label>
+              <div class="form-floating mb-3">
                   <input type="text" name="company" value="{{ company }}" placeholder="{{ entry_company }}" id="input-company" class="form-control"/>
+                  <label for="input-company" class="form-label">{{ entry_company }}</label>
               </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="form-group required">
-                            <label for="input-address-1" class="form-label">{{ entry_address_1 }}</label>
+                        <div class="form-floating mb-3 required">
                             <input type="text" name="address_1" value="{{ address_1 }}" placeholder="{{ entry_address_1 }}" id="input-address-1" class="form-control"/>
+                            <label for="input-address-1" class="form-label">{{ entry_address_1 }}</label>
                             <div id="error-address-1" class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="input-address-2" class="form-label">{{ entry_address_2 }}</label>
+                        <div class="form-floating mb-3">
                             <input type="text" name="address_2" value="{{ address_2 }}" placeholder="{{ entry_address_2 }}" id="input-address-2" class="form-control"/>
+                            <label for="input-address-2" class="form-label">{{ entry_address_2 }}</label>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group required">
-                            <label for="input-city" class="form-label">{{ entry_city }}</label>
+                        <div class="form-floating mb-3 required">
                             <input type="text" name="city" value="{{ city }}" placeholder="{{ entry_city }}" id="input-city" class="form-control"/>
+                            <label for="input-city" class="form-label">{{ entry_city }}</label>
                             <div id="error-city" class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group required">
-                            <label for="input-postcode" class="form-label">{{ entry_postcode }}</label>
+                        <div class="form-floating mb-3 required">
                             <input type="text" name="postcode" value="{{ postcode }}" placeholder="{{ entry_postcode }}" id="input-postcode" class="form-control"/>
+                            <label for="input-postcode" class="form-label">{{ entry_postcode }}</label>
                             <div id="error-postcode" class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group required">
-                            <label for="input-country" class="form-label">{{ entry_country }}</label>
+                        <div class="form-floating mb-3 required">
+
                             <select name="country_id" id="input-country" class="form-select">
                                 <option value="0">{{ text_select }}</option>
                                 {% for country in countries %}
                                     <option value="{{ country.country_id }}"{% if country.country_id == country_id %} selected{% endif %}>{{ country.name }}</option>
                                 {% endfor %}
                             </select>
+                            <label for="input-country" class="form-label">{{ entry_country }}</label>
                             <div id="error-country" class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group required">
-                            <label for="input-zone" class="form-label">{{ entry_zone }}</label>
+                        <div class="form-floating mb-3 required">
+
                             <select name="zone_id" id="input-zone" class="form-select"></select>
+                            <label for="input-zone" class="form-label">{{ entry_zone }}</label>
                             <div id="error-zone" class="invalid-feedback"></div>
                         </div>
                     </div>

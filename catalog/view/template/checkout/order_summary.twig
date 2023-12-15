@@ -1,0 +1,31 @@
+<div class="shopping_price_card mb-4" id="order-summary">
+    <div>
+        <h5>Order Summary</h5>
+        <hr class="line mt-3">
+    </div>
+    <table class="table table-borderless mb-0">
+        <tbody id="checkout-total">
+        <tr>
+            <th>{{ totals[0]['title'] }}</th>
+            <td class="text-end">{{ totals[0]['text'] }}</td>
+        </tr>
+        <tr>
+            <th>Shipping Charges</th>
+            <td><small class="text-primary">Calculated at checkout</small></td>
+        </tr>
+        </tbody>
+        <tfoot class="border-top border-bottom checkout_total" id="checkout-total">
+        {% for total in totals %}
+            {% if total.code != 'sub_total' and total.code != 'tax' %}
+                <tr>
+                    <th>{{ total.title }}</th>
+                    <td class="text-end">{{ total.text }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        <tr>
+            <td colspan="2">+ Shipping Charges</td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

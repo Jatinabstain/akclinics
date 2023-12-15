@@ -7,6 +7,12 @@ namespace Opencart\Catalog\Model\Extension\HairTest\module;
 class Question extends \Opencart\System\Engine\Model
 {
 
+    public function getQuestions(): array
+    {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "hair_test_question` WHERE `status`=1 order by category_id,sort_order");
+        return $query->rows;
+    }
+
     public function getQuestion(int $parent_id): array
     {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "hair_test_question` WHERE `status`=1 and `parent_id`=".$parent_id.' order by sort_order');
@@ -47,7 +53,10 @@ class Question extends \Opencart\System\Engine\Model
             $this->db->query("INSERT INTO `" . DB_PREFIX . "hair_test_surveys` SET `customer_id`=".(int) $customer_id.", `name`='".$this->db->escape((string) $name)."', `phone_number`='".$this->db->escape((string) $phone_number)."', `email`='".$this->db->escape((string) $email)."', `ip_address`='".$this->db->escape($ip_address)."',  `user_agent`='".$this->db->escape($user_agent)."', `date_added`=now(), `date_modifiled`=now()");
             $survey_id = $this->db->getLastId();
             foreach ($hair_test_answers as $hair_test_answer) {
-                $this->db->query("INSERT INTO `" . DB_PREFIX . "hair_test_survey_answers` SET `survey_id`=".(int) $survey_id.", `question_id`=".(int) $hair_test_answer['question_data']['question_id'].",  `question`='".$this->db->escape($hair_test_answer['question_data']['question'])."', `answer`='".$this->db->escape($hair_test_answer['value'])."'");
+                if (is_array($hair_test_answer['value'])) {
+                    $hair_test_answer['value'] = implode('<br/> ',$hair_test_answer['value']);
+                }
+                $this->db->query("INSERT INTO `" . DB_PREFIX . "hair_test_survey_answers` SET `survey_id`=".(int) $survey_id.", `question_id`=".(int) $hair_test_answer['question_data']['question_id'].",  `question`='".$this->db->escape($hair_test_answer['question_data']['question'])."', `answer`='".$this->db->escape($hair_test_answer['value'])."', `answers`='".$this->db->escape(serialize($hair_test_answer['answers']))."'");
             }
 
         }

@@ -17,7 +17,7 @@ class HairTest extends \Opencart\System\Engine\Controller
             foreach ($categories as $category) {
                 $data['categories'][] = [
                     'category_id' => $category['category_id'],
-                    'name' => $category['name'],
+                    'name' => html_entity_decode($category['name'],ENT_QUOTES,'UTF-8'),
                 ];
             }
         }
@@ -31,6 +31,7 @@ class HairTest extends \Opencart\System\Engine\Controller
         $data['header'] = $this->load->controller('common/header');
         $data['question'] = $this->url->link('extension/hair_test/module/hair_test.question');
         $data['save'] = $this->url->link('extension/hair_test/module/hair_test.save');
+        $data['home_link'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 
         $this->response->setOutput($this->load->view('extension/hair_test/module/hair_test', $data));
     }
@@ -43,9 +44,18 @@ class HairTest extends \Opencart\System\Engine\Controller
 
         $data['question'] = $data['answers'] = [];
         $question = $this->model_extension_hair_test_module_question->getQuestion($parent_id);
+        $all_questions = $this->model_extension_hair_test_module_question->getQuestions();
 
+        $data['image_ajax'] = $this->url->link('extension/hair_test/module/hair_test.image');
+        $answered_questions = 0;
         if ($question) {
             $question_data = $this->model_extension_hair_test_module_question->getQuestionById($question['parent_id']);
+            foreach ($all_questions as $all_question) {
+                if ($question['question_id'] === $all_question['question_id']){
+                    break;
+                }
+                $answered_questions++;
+            }
             $data['question'] = [
                 'name' => $question['question'],
                 'category_id' => $question['category_id'],
@@ -57,6 +67,7 @@ class HairTest extends \Opencart\System\Engine\Controller
                 'value' => $this->session->data['hair_test_answers'][$question['question_id']]['value'] ?? '',
                 'show_prev' => $question_data ? true : false
             ];
+
             $data['answers'] = $this->model_extension_hair_test_module_question->getAnswers($question['question_id']);
         }
         $this->load->model('tool/image');
@@ -73,6 +84,7 @@ class HairTest extends \Opencart\System\Engine\Controller
             $this->model_extension_hair_test_module_question->saveAnswers();
             $save_data = true;
         }
+         $data['percent'] = ceil(($answered_questions/count($all_questions))*100);
         if ($save_data) {
             $this->response->setOutput($this->load->view('extension/hair_test/module/thanks', $data));
         } else {
@@ -104,9 +116,11 @@ class HairTest extends \Opencart\System\Engine\Controller
             }
         }
         if (!$json) {
+            $answers = $this->model_extension_hair_test_module_question->getAnswers($question_id);
             $this->session->data['hair_test_answers'][$question_id] = [
                 'question_data' => $question_data,
-                'value' => $value
+                'value' => $value,
+                'answers' => $answers,
             ];
             $json['next_question'] = $question_id;
         }

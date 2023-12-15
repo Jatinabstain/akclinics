@@ -12,47 +12,30 @@ class Footer extends \Opencart\System\Engine\Controller {
 	public function index(): string {
 		$this->load->language('common/footer');
 
-		$data['blog'] = $this->url->link('cms/blog', 'language=' . $this->config->get('config_language'));
-
 		$data['informations'] = [];
-
 		$this->load->model('catalog/information');
 
 		foreach ($this->model_catalog_information->getInformations() as $result) {
 			if ($result['bottom']) {
+                $external = false;
+                $href = $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . $result['information_id']);
+                if ($result['external_url']) {
+                    $href = $result['external_url'];
+                    $external = true;
+                }
+                if ((int) $result['information_id'] === 5 ) {
+                    $external = false;
+                }
 				$data['informations'][] = [
 					'title' => $result['title'],
-					'href'  => $this->url->link('information/information', 'language=' . $this->config->get('config_language') . '&information_id=' . $result['information_id'])
+                    'href'  => $href,
+                    'external'  => $external,
 				];
 			}
 		}
 
 		$data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
 		$data['return'] = $this->url->link('account/returns.add', 'language=' . $this->config->get('config_language'));
-
-		if ($this->config->get('config_gdpr_id')) {
-			$data['gdpr'] = $this->url->link('information/gdpr', 'language=' . $this->config->get('config_language'));
-		} else {
-			$data['gdpr'] = '';
-		}
-
-		$data['sitemap'] = $this->url->link('information/sitemap', 'language=' . $this->config->get('config_language'));
-		$data['manufacturer'] = $this->url->link('product/manufacturer', 'language=' . $this->config->get('config_language'));
-		$data['voucher'] = $this->url->link('checkout/voucher', 'language=' . $this->config->get('config_language'));
-
-		if ($this->config->get('config_affiliate_status')) {
-			$data['affiliate'] = $this->url->link('account/affiliate', 'language=' . $this->config->get('config_language') . (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		} else {
-			$data['affiliate'] = '';
-		}
-
-		$data['special'] = $this->url->link('product/special', 'language=' . $this->config->get('config_language') . (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		$data['account'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		$data['order'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language') . (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		$data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language') . (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-		$data['newsletter'] = $this->url->link('account/newsletter', 'language=' . $this->config->get('config_language') . (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
-
-		$data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));
 
 		// Who's Online
 		if ($this->config->get('config_customer_online')) {
@@ -87,6 +70,15 @@ class Footer extends \Opencart\System\Engine\Controller {
 
 		$data['cookie'] = $this->load->controller('common/cookie');
 
+		$data['telephone'] = $this->config->get('config_telephone');
+		$data['email'] = $this->config->get('config_email');
+		$data['address'] = nl2br($this->config->get('config_address'));
+		$data['FB_LINK'] = FB_LINK;
+		$data['LI_LINK'] = LI_LINK;
+		$data['IG_LINK'] = IG_LINK;
+		$data['YT_LINK'] = YT_LINK;
+        $data['subscribe'] = $this->load->controller('extension/subscribe/module/subscribe');
+        $data['callback'] = $this->load->controller('extension/subscribe/module/subscribe.callback');
 		return $this->load->view('common/footer', $data);
 	}
 }

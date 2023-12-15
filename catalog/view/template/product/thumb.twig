@@ -6,7 +6,7 @@
     <div class="description">
       <h4><a href="{{ href }}">{{ name }}</a></h4>
         <div class="thumb_description">
-            <p class="mb-0 text-center">{{ description }}</p>
+            <p class="mb-0 text-center">{{ short_description }}</p>
         </div>
         {% if review_status and rating %}
             <div class="rating text-center">
@@ -31,11 +31,7 @@
           {% endif %}
         </div>
       {% endif %}
-        <div class="thumb_wishlist">
-            <form method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#header-cart">
-                <button type="submit" class="btn wishlist_btn" formaction="{{ add_to_wishlist }}" data-bs-toggle="tooltip" title="{{ button_wishlist }}"><i class="fa-solid fa-heart"></i></button>
-            </form>
-        </div>
+
         <form method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#header-cart">
           <div>
             <button type="submit" formaction="{{ add_to_cart }}" class="btn btn_primary_outline mx-auto d-block mt-2">{{ button_cart }}</button>
